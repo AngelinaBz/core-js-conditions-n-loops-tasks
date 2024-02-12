@@ -475,6 +475,7 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
+
 function getNearestBigger(number) {
   if (number < 10) {
     return number;
@@ -492,17 +493,13 @@ function getNearestBigger(number) {
     j += 1;
   }
   [arr[i - 1], arr[j - 1]] = [arr[j - 1], arr[i - 1]];
-  const sortedTail = arr.slice(i).sort((a, b) => a - b);
-  let result = 0;
+  const newArr = [...arr];
+  const sortedArr = arr.splice(i).sort((a, b) => a - b);
+  const result = parseInt([...newArr.splice(0, i), ...sortedArr].join(''), 10);
 
-  for (let n = 0; n < i; n += 1) {
-    result = result * 10 + arr[n];
+  if (number > result) {
+    return number;
   }
-
-  for (let n = 0; n < sortedTail.length; n += 1) {
-    result = result * 10 + sortedTail[n];
-  }
-
   return result;
 }
 
